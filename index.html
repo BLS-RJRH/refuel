@@ -11,12 +11,12 @@
     body { font-family: 'Prompt', sans-serif; }
   </style>
 </head>
-<body class="bg-slate-900 text-slate-100 min-h-screen py-8 px-4 flex justify-center items-center">
+<body class="bg-slate-950 text-slate-100 min-h-screen py-8 px-4 flex justify-center items-center">
 
-  <div class="w-full max-w-lg bg-slate-800 border border-slate-700 rounded-2xl shadow-2xl p-6 sm:p-8">
+  <div class="w-full max-w-lg bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl p-6 sm:p-8">
     
     <!-- Header -->
-    <div class="text-center border-b border-slate-700 pb-5 mb-6">
+    <div class="text-center border-b border-slate-800 pb-5 mb-6">
       <h1 class="text-2xl font-bold text-amber-400">⛽ บันทึกยอดเติมน้ำมัน</h1>
       <p class="text-slate-400 text-sm mt-1">ระบบลงบันทึกการใช้น้ำมันและควบคุมวงเงินบัตร</p>
     </div>
@@ -27,21 +27,21 @@
       <div>
         <label class="block text-sm font-medium text-slate-300 mb-2">ทะเบียนรถ <span class="text-red-400">*</span></label>
         <div class="grid grid-cols-2 gap-3">
-          <label class="flex items-center gap-2 p-3 bg-slate-700/50 rounded-xl border border-slate-600 cursor-pointer hover:border-amber-400 transition">
+          <label class="flex items-center gap-2 p-3 bg-slate-800/60 rounded-xl border border-slate-700 cursor-pointer hover:border-amber-400 transition">
             <input type="radio" name="plate" value="2ขร5728" class="accent-amber-400" required onchange="handlePlateChange(this.value)">
-            <span class="text-sm font-medium">2ขร5728(51)</span>
+            <span class="text-sm font-medium">2ขร5728 (51)</span>
           </label>
-          <label class="flex items-center gap-2 p-3 bg-slate-700/50 rounded-xl border border-slate-600 cursor-pointer hover:border-amber-400 transition">
+          <label class="flex items-center gap-2 p-3 bg-slate-800/60 rounded-xl border border-slate-700 cursor-pointer hover:border-amber-400 transition">
             <input type="radio" name="plate" value="2ขร5734" class="accent-amber-400" required onchange="handlePlateChange(this.value)">
-            <span class="text-sm font-medium">2ขร5734(52)</span>
+            <span class="text-sm font-medium">2ขร5734 (52)</span>
           </label>
-          <label class="flex items-center gap-2 p-3 bg-slate-700/50 rounded-xl border border-slate-600 cursor-pointer hover:border-amber-400 transition">
+          <label class="flex items-center gap-2 p-3 bg-slate-800/60 rounded-xl border border-slate-700 cursor-pointer hover:border-amber-400 transition">
             <input type="radio" name="plate" value="5ขฒ9840" class="accent-amber-400" required onchange="handlePlateChange(this.value)">
-            <span class="text-sm font-medium">5ขฒ9840(53)</span>
+            <span class="text-sm font-medium">5ขฒ9840 (53)</span>
           </label>
-          <label class="flex items-center gap-2 p-3 bg-slate-700/50 rounded-xl border border-slate-600 cursor-pointer hover:border-amber-400 transition">
+          <label class="flex items-center gap-2 p-3 bg-slate-800/60 rounded-xl border border-slate-700 cursor-pointer hover:border-amber-400 transition">
             <input type="radio" name="plate" value="6ขผ4178" class="accent-amber-400" required onchange="handlePlateChange(this.value)">
-            <span class="text-sm font-medium">6ขผ4178(MTL)</span>
+            <span class="text-sm font-medium">6ขผ4178 (MTL)</span>
           </label>
         </div>
       </div>
@@ -50,15 +50,15 @@
       <div>
         <label class="block text-sm font-medium text-slate-300 mb-2">จ่ายโดย (Pay by) <span class="text-red-400">*</span></label>
         <div class="grid grid-cols-3 gap-2">
-          <label class="flex items-center justify-center p-3 bg-slate-700/50 rounded-xl border border-slate-600 cursor-pointer hover:border-amber-400 transition text-center">
+          <label class="flex items-center justify-center p-3 bg-slate-800/60 rounded-xl border border-slate-700 cursor-pointer hover:border-amber-400 transition text-center">
             <input type="radio" name="payBy" value="cash" class="accent-amber-400 mr-2" required onchange="handlePayByChange(this.value)">
             <span class="text-sm">เงินสด</span>
           </label>
-          <label id="creditOption" class="flex items-center justify-center p-3 bg-slate-700/50 rounded-xl border border-slate-600 cursor-pointer hover:border-amber-400 transition text-center">
+          <label id="creditOption" class="flex items-center justify-center p-3 bg-slate-800/60 rounded-xl border border-slate-700 cursor-pointer hover:border-amber-400 transition text-center">
             <input type="radio" name="payBy" value="credit card" id="creditRadio" class="accent-amber-400 mr-2" required onchange="handlePayByChange(this.value)">
             <span class="text-sm">บัตรเครดิต</span>
           </label>
-          <label class="flex items-center justify-center p-3 bg-slate-700/50 rounded-xl border border-slate-600 cursor-pointer hover:border-amber-400 transition text-center">
+          <label class="flex items-center justify-center p-3 bg-slate-800/60 rounded-xl border border-slate-700 cursor-pointer hover:border-amber-400 transition text-center">
             <input type="radio" name="payBy" value="orther" class="accent-amber-400 mr-2" required onchange="handlePayByChange(this.value)">
             <span class="text-sm">อื่นๆ</span>
           </label>
@@ -66,12 +66,12 @@
         
         <!-- ช่องระบุอื่นๆ -->
         <div id="otherInputContainer" class="hidden mt-3">
-          <input type="text" id="otherNote" placeholder="ระบุวิธีการชำระ..." class="w-full px-4 py-2.5 bg-slate-900 border border-slate-600 rounded-xl text-sm focus:outline-none focus:border-amber-400">
+          <input type="text" id="otherNote" placeholder="ระบุวิธีการชำระ..." class="w-full px-4 py-2.5 bg-slate-950 border border-slate-700 rounded-xl text-sm focus:outline-none focus:border-amber-400">
         </div>
       </div>
 
-      <!-- กล่องแสดง Available Balance (ซ่อนไว้เป็นค่าเริ่มต้น จะแสดงเมื่อเลือกบัตรเครดิต) -->
-      <div id="balanceBox" class="hidden p-4 bg-slate-900/80 rounded-xl border border-amber-500/30 flex justify-between items-center transition-all duration-200">
+      <!-- กล่องแสดง Available Balance (แสดงเฉพาะตอนเลือกบัตรเครดิต) -->
+      <div id="balanceBox" class="hidden p-4 bg-slate-950 rounded-xl border border-amber-500/30 flex justify-between items-center transition-all duration-200">
         <div>
           <p class="text-xs text-slate-400">วงเงินบัตรเครดิตคงเหลือประจำเดือน (15,000 บ.)</p>
           <p id="balanceText" class="text-xl font-bold text-amber-400 mt-0.5">กรุณาเลือกทะเบียนรถ</p>
@@ -82,13 +82,13 @@
       <!-- 3. ยอดเงิน (Amount) -->
       <div>
         <label class="block text-sm font-medium text-slate-300 mb-2">ยอดเงิน (บาท) <span class="text-red-400">*</span></label>
-        <input type="number" id="amount" step="0.01" min="1" required placeholder="0.00" class="w-full px-4 py-3 bg-slate-900 border border-slate-600 rounded-xl text-lg font-semibold text-white focus:outline-none focus:border-amber-400 transition">
+        <input type="number" id="amount" step="0.01" min="1" required placeholder="0.00" class="w-full px-4 py-3 bg-slate-950 border border-slate-700 rounded-xl text-lg font-semibold text-white focus:outline-none focus:border-amber-400 transition">
       </div>
 
       <!-- 4. ผู้เติม (Staff) -->
       <div>
         <label class="block text-sm font-medium text-slate-300 mb-2">ผู้เติม (Staff) <span class="text-red-400">*</span></label>
-        <select id="staff" required class="w-full px-4 py-3 bg-slate-900 border border-slate-600 rounded-xl text-sm text-white focus:outline-none focus:border-amber-400 transition">
+        <select id="staff" required class="w-full px-4 py-3 bg-slate-950 border border-slate-700 rounded-xl text-sm text-white focus:outline-none focus:border-amber-400 transition">
           <option value="" disabled selected>-- เลือกรายชื่อผู้เติม --</option>
           <option value="พลธร">พลธร</option>
           <option value="ชัยชนะ">ชัยชนะ</option>
@@ -114,7 +114,7 @@
 
     let currentBalance = 0;
 
-    // ฟังก์ชันดึงยอดคงเหลือ
+    // ดึงยอดเงินคงเหลือจาก GAS
     async function fetchBalance(plate) {
       const balanceText = document.getElementById('balanceText');
       const loading = document.getElementById('loadingBalance');
@@ -140,7 +140,7 @@
       }
     }
 
-    // ตรวจสอบเมื่อมีการเปลี่ยนทะเบียนรถ
+    // เมื่อเปลี่ยนทะเบียนรถ
     async function handlePlateChange(plate) {
       const creditOption = document.getElementById('creditOption');
       const creditRadio = document.getElementById('creditRadio');
@@ -150,7 +150,6 @@
         creditOption.classList.add('opacity-40', 'pointer-events-none');
         creditRadio.disabled = true;
         
-        // ถ้าเดิมติ๊กบัตรเครดิตอยู่ ให้สลับไปเป็นเงินสดและซ่อนกล่องยอด
         if (creditRadio.checked) {
           document.querySelector('input[name="payBy"][value="cash"]').checked = true;
           balanceBox.classList.add('hidden');
@@ -159,21 +158,19 @@
         creditOption.classList.remove('opacity-40', 'pointer-events-none');
         creditRadio.disabled = false;
 
-        // ถ้าตอนนี้เลือกบัตรเครดิตอยู่ ให้โหลดคำนวณยอดของรถคันใหม่
         if (creditRadio.checked) {
           fetchBalance(plate);
         }
       }
     }
 
-    // จัดการตัวเลือก Pay By (แสดงยอดคงเหลือเฉพาะบัตรเครดิต)
+    // เมื่อเปลี่ยนวิธีการชำระเงิน
     function handlePayByChange(val) {
       const otherContainer = document.getElementById('otherInputContainer');
       const otherInput = document.getElementById('otherNote');
       const balanceBox = document.getElementById('balanceBox');
       const selectedPlate = document.querySelector('input[name="plate"]:checked')?.value;
 
-      // จัดการช่องกรอกอื่นๆ
       if (val === 'orther') {
         otherContainer.classList.remove('hidden');
         otherInput.required = true;
@@ -183,7 +180,6 @@
         otherInput.value = '';
       }
 
-      // แสดงหรือซ่อนกล่อง Available Balance
       if (val === 'credit card') {
         balanceBox.classList.remove('hidden');
         if (selectedPlate) {
@@ -231,10 +227,20 @@
         const resData = await response.json();
         
         if (resData.status === 'success') {
+          // กำหนดข้อความแจ้งเตือนตามเงื่อนไข
+          const formattedAmount = amount.toLocaleString('th-TH', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+          let messageHtml = `<div class="mt-2 text-slate-600 font-medium">ยอดเติม <b>${formattedAmount}</b> บาท</div>`;
+
+          if (payBy === 'credit card' && plate !== '6ขผ4178') {
+            const formattedBalance = Number(resData.remainingBalance).toLocaleString('th-TH', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            messageHtml = `<div class="mt-2 text-slate-600 font-medium">ยอดเติม <b>${formattedAmount}</b> บาท<br><span class="text-amber-600 font-semibold">บัตรคงเหลือ ${formattedBalance} บาท</span></div>`;
+          }
+
           Swal.fire({
             icon: 'success',
-            title: 'บันทึกสำเร็จ!',
-            text: `บันทึกข้อมูลลงแท็บ ${plate} เรียบร้อยแล้ว`,
+            title: `บันทึกยอดทะเบียน ${plate} แล้ว`,
+            html: messageHtml,
+            confirmButtonText: 'ตกลง',
             confirmButtonColor: '#f59e0b'
           });
           
