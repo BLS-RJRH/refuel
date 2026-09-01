@@ -46,15 +46,6 @@
         </div>
       </div>
 
-      <!-- กล่องแสดง Available Balance -->
-      <div id="balanceBox" class="p-4 bg-slate-900/80 rounded-xl border border-amber-500/30 flex justify-between items-center">
-        <div>
-          <p class="text-xs text-slate-400">วงเงินบัตรเครดิตคงเหลือประจำเดือน (15,000 บ.)</p>
-          <p id="balanceText" class="text-xl font-bold text-amber-400 mt-0.5">กรุณาเลือกทะเบียนรถ</p>
-        </div>
-        <div id="loadingBalance" class="hidden animate-spin rounded-full h-5 w-5 border-2 border-amber-400 border-t-transparent"></div>
-      </div>
-
       <!-- 2. จ่ายโดย (Pay By) -->
       <div>
         <label class="block text-sm font-medium text-slate-300 mb-2">จ่ายโดย (Pay by) <span class="text-red-400">*</span></label>
@@ -77,6 +68,15 @@
         <div id="otherInputContainer" class="hidden mt-3">
           <input type="text" id="otherNote" placeholder="ระบุวิธีการชำระ..." class="w-full px-4 py-2.5 bg-slate-900 border border-slate-600 rounded-xl text-sm focus:outline-none focus:border-amber-400">
         </div>
+      </div>
+
+      <!-- กล่องแสดง Available Balance (ซ่อนไว้เป็นค่าเริ่มต้น จะแสดงเมื่อเลือกบัตรเครดิต) -->
+      <div id="balanceBox" class="hidden p-4 bg-slate-900/80 rounded-xl border border-amber-500/30 flex justify-between items-center transition-all duration-200">
+        <div>
+          <p class="text-xs text-slate-400">วงเงินบัตรเครดิตคงเหลือประจำเดือน (15,000 บ.)</p>
+          <p id="balanceText" class="text-xl font-bold text-amber-400 mt-0.5">กรุณาเลือกทะเบียนรถ</p>
+        </div>
+        <div id="loadingBalance" class="hidden animate-spin rounded-full h-5 w-5 border-2 border-amber-400 border-t-transparent"></div>
       </div>
 
       <!-- 3. ยอดเงิน (Amount) -->
@@ -110,31 +110,20 @@
   </div>
 
   <script>
-    // ⚠️ นำ Web App URL ที่ได้จาก Google Apps Script มาใส่ที่นี่
     const GAS_API_URL = "https://script.google.com/macros/s/AKfycbwIyBrjWukzk3fPowz0U0lqdPJFiwRLsjI5a68q8M-DL7mgfxccQwRSqK0P3DvCdgYX/exec";
 
     let currentBalance = 0;
 
-    // ตรวจสอบการเลือกรถ
-    async function handlePlateChange(plate) {
-      const creditOption = document.getElementById('creditOption');
-      const creditRadio = document.getElementById('creditRadio');
+    // ฟังก์ชันดึงยอดคงเหลือ
+    async function fetchBalance(plate) {
       const balanceText = document.getElementById('balanceText');
       const loading = document.getElementById('loadingBalance');
 
-      if (plate === '6ขผ4178') {
-        creditOption.classList.add('opacity-40', 'pointer-events-none');
-        creditRadio.disabled = true;
-        if (creditRadio.checked) document.querySelector('input[name="payBy"][value="cash"]').checked = true;
-        balanceText.innerText = "ไม่มีบัตรเครดิต (จ่ายเงินสดเท่านั้น)";
-        balanceText.className = "text-base font-medium text-slate-400 mt-0.5";
+      if (!plate) {
+        balanceText.innerText = "กรุณาเลือกทะเบียนรถก่อน";
         return;
-      } else {
-        creditOption.classList.remove('opacity-40', 'pointer-events-none');
-        creditRadio.disabled = false;
       }
 
-      // ดึงยอดคงเหลือจาก GAS
       loading.classList.remove('hidden');
       balanceText.innerText = "กำลังคำนวณยอด...";
       
@@ -151,10 +140,40 @@
       }
     }
 
-    // จัดการตัวเลือก Pay By อื่นๆ
+    // ตรวจสอบเมื่อมีการเปลี่ยนทะเบียนรถ
+    async function handlePlateChange(plate) {
+      const creditOption = document.getElementById('creditOption');
+      const creditRadio = document.getElementById('creditRadio');
+      const balanceBox = document.getElementById('balanceBox');
+
+      if (plate === '6ขผ4178') {
+        creditOption.classList.add('opacity-40', 'pointer-events-none');
+        creditRadio.disabled = true;
+        
+        // ถ้าเดิมติ๊กบัตรเครดิตอยู่ ให้สลับไปเป็นเงินสดและซ่อนกล่องยอด
+        if (creditRadio.checked) {
+          document.querySelector('input[name="payBy"][value="cash"]').checked = true;
+          balanceBox.classList.add('hidden');
+        }
+      } else {
+        creditOption.classList.remove('opacity-40', 'pointer-events-none');
+        creditRadio.disabled = false;
+
+        // ถ้าตอนนี้เลือกบัตรเครดิตอยู่ ให้โหลดคำนวณยอดของรถคันใหม่
+        if (creditRadio.checked) {
+          fetchBalance(plate);
+        }
+      }
+    }
+
+    // จัดการตัวเลือก Pay By (แสดงยอดคงเหลือเฉพาะบัตรเครดิต)
     function handlePayByChange(val) {
       const otherContainer = document.getElementById('otherInputContainer');
       const otherInput = document.getElementById('otherNote');
+      const balanceBox = document.getElementById('balanceBox');
+      const selectedPlate = document.querySelector('input[name="plate"]:checked')?.value;
+
+      // จัดการช่องกรอกอื่นๆ
       if (val === 'orther') {
         otherContainer.classList.remove('hidden');
         otherInput.required = true;
@@ -162,6 +181,18 @@
         otherContainer.classList.add('hidden');
         otherInput.required = false;
         otherInput.value = '';
+      }
+
+      // แสดงหรือซ่อนกล่อง Available Balance
+      if (val === 'credit card') {
+        balanceBox.classList.remove('hidden');
+        if (selectedPlate) {
+          fetchBalance(selectedPlate);
+        } else {
+          document.getElementById('balanceText').innerText = "กรุณาเลือกทะเบียนรถด้านบน";
+        }
+      } else {
+        balanceBox.classList.add('hidden');
       }
     }
 
@@ -208,6 +239,7 @@
           });
           
           document.getElementById('fuelForm').reset();
+          document.getElementById('balanceBox').classList.add('hidden');
           document.getElementById('balanceText').innerText = "กรุณาเลือกทะเบียนรถ";
           document.getElementById('otherInputContainer').classList.add('hidden');
         } else {
